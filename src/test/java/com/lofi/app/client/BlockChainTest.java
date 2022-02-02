@@ -1,14 +1,14 @@
 package com.lofi.app.client;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public class BlockChainTest {
 
@@ -18,7 +18,7 @@ public class BlockChainTest {
 
 	public static String prefixString = new String(new char[prefix]).replace('\0', '0');
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() {
 		Block genesisBlock = new Block("The is the Genesis Block.", "0", new Date().getTime());
 		genesisBlock.mineBlock(prefix);
@@ -51,7 +51,7 @@ public class BlockChainTest {
 		assertTrue(flag);
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDown() {
 		blockchain.clear();
 	}
