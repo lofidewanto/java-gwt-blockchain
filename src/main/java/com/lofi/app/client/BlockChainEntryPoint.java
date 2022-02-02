@@ -11,8 +11,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class BlockChainEntryPoint implements EntryPoint {
 
-	private static Logger logger = Logger
-			.getLogger(BlockChainEntryPoint.class.getName());
+	private static Logger logger = Logger.getLogger(BlockChainEntryPoint.class.getName());
 
 	private static int prefix = 4;
 
@@ -24,16 +23,16 @@ public class BlockChainEntryPoint implements EntryPoint {
 
 			List<Block> blockchain = new ArrayList<Block>();
 			Block genesisBlock = new Block("The is the Genesis Block.", "0", new Date().getTime());
-        	genesisBlock.mineBlock(prefix);
-        	blockchain.add(genesisBlock);
-        	Block firstBlock = new Block("The is the First Block.", genesisBlock.getHash(), new Date().getTime());
-        	firstBlock.mineBlock(prefix);
-        	blockchain.add(firstBlock);
+			genesisBlock.mineBlock(prefix);
+			blockchain.add(genesisBlock);
+			Block firstBlock = new Block("The is the First Block.", genesisBlock.getHash(), new Date().getTime());
+			firstBlock.mineBlock(prefix);
+			blockchain.add(firstBlock);
 
-			Block newBlock = new Block("The is a New Block.", blockchain.get(blockchain.size() - 1)
-                .getHash(), new Date().getTime());
-        	newBlock.mineBlock(prefix);
-        	blockchain.add(newBlock);
+			Block newBlock = new Block("The is a New Block.", blockchain.get(blockchain.size() - 1).getHash(),
+					new Date().getTime());
+			newBlock.mineBlock(prefix);
+			blockchain.add(newBlock);
 		});
 
 		RootPanel.get("helloButton").add(button);
