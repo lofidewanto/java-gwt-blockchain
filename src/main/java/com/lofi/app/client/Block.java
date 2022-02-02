@@ -44,9 +44,14 @@ public class Block {
 		}
 
 		StringBuffer buffer = new StringBuffer();
+		
 		for (byte b : bytes) {
-			buffer.append(String.format("%02x", b));
+			String formatContent = String.format("%02x", b);
+			
+			buffer.append(formatContent);
 		}
+		
+		logger.info("Result completed: " + buffer.toString());
 		return buffer.toString();
 	}
 
