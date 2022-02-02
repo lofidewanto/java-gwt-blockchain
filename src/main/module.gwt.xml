@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="blockchain">
+	<inherits name="com.github.gwtboot.starter.Starter"/>
+
+	<!-- Entry Point -->
+	<entry-point
+		class='com.lofi.app.client.BlockChainEntryPoint'/>
+</module>
