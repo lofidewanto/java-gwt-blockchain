@@ -5,7 +5,9 @@ This is a simple example Blockchain in Java and GWT.
 This example is taken from: https://www.baeldung.com/java-blockchain
 
 Start the GWT devmode:
+```
 mvn gwt:generate-module gwt:devmode
+```
 
 One change needs to be done:
 - GWT doesn't emulate String.format so need to be changed. This StackOverflow article 
