@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.jboss.elemento.Elements;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
@@ -28,14 +30,11 @@ public class BlockchainEntryPoint implements EntryPoint {
 	public void onModuleLoad() {
 		Element div = DomGlobal.document.getElementById("hello");
 		
-		HTMLButtonElement button = (HTMLButtonElement) DomGlobal.document.createElement("button");
-		label = (HTMLLabelElement) DomGlobal.document.createElement("label");
+		HTMLButtonElement button = Elements.button("Click me!").element();
+		label = Elements.label("...").element();
 		
 		div.append(button);
 		div.append(label);
-		
-		button.innerHTML = "Click me!";
-		label.innerHTML = "...";
 		
 		button.addEventListener("click", event -> {
 			createBlockchain();
