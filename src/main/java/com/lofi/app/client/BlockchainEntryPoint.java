@@ -9,9 +9,9 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class BlockChainEntryPoint implements EntryPoint {
+public class BlockchainEntryPoint implements EntryPoint {
 
-	private static Logger logger = Logger.getLogger(BlockChainEntryPoint.class.getName());
+	private static Logger logger = Logger.getLogger(BlockchainEntryPoint.class.getName());
 
 	private static int prefix = 4;
 

@@ -10,6 +10,8 @@ public class Block {
 
 	private static Logger logger = Logger.getLogger(Block.class.getName());
 
+	private static String HEXES = "0123456789ABCDEF";
+
 	private String hash;
 	private String previousHash;
 	private String data;
@@ -44,15 +46,40 @@ public class Block {
 		}
 
 		StringBuffer buffer = new StringBuffer();
-		
-		for (byte b : bytes) {
-			String formatContent = String.format("%02x", b);
-			
-			buffer.append(formatContent);
-		}
-		
+
+		formatByteOfArrayToHexWithChar(bytes, buffer);
+
+
 		logger.info("Result completed: " + buffer.toString());
 		return buffer.toString();
+	}
+
+    void formatByteOfArrayToHexWithChar(byte[] bytes, StringBuffer buffer) {
+		for (int i = 0; i < bytes.length; i++) {
+			buffer.append(Character.forDigit((bytes[i] >> 4) & 0xF, 16));
+			buffer.append(Character.forDigit((bytes[i] & 0xF), 16));
+		}
+	}
+    
+    void formatByteOfArrayToHexWithStringFormat(byte[] bytes, StringBuffer buffer) {
+		for (byte b : bytes) {
+			String formatContent = formatToHex(b);
+			buffer.append(formatContent);
+		}
+	}
+
+	String formatToHex(byte b) {
+		String formatContent = String.format("%02x", b);
+		return formatContent;
+	}
+
+	String getHex(byte[] raw) {
+		final StringBuilder hex = new StringBuilder(2 * raw.length);
+		
+		for (final byte b : raw) {
+			hex.append(HEXES.charAt((b & 0xF0) >> 4)).append(HEXES.charAt((b & 0x0F)));
+		}
+		return hex.toString();
 	}
 
 	public String getHash() {

@@ -4,13 +4,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BlockChainTest {
+public class BlockchainTest {
 
 	public static List<Block> blockchain = new ArrayList<Block>();
 
@@ -49,6 +50,16 @@ public class BlockChainTest {
 				break;
 		}
 		assertTrue(flag);
+	}
+	
+	@Test
+	public void formatToHex() {
+		Block newBlock = new Block("The is a New Block.", blockchain.get(blockchain.size() - 1).getHash(),
+				new Date().getTime());
+		
+		String result = newBlock.formatToHex((byte) 0x4f);
+		
+		assertEquals("4f", result);
 	}
 
 	@AfterAll
