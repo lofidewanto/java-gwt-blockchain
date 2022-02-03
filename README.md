@@ -22,4 +22,4 @@ https://stackoverflow.com/questions/2817752/java-code-to-convert-byte-to-hexadec
 
 # Eclipse IDE
 
-![Eclipse IDE](src/doc/eclipe.png?raw=true "Eclipse IDE")
+![Eclipse IDE](src/doc/eclipse.png?raw=true "Eclipse IDE")
