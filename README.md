@@ -10,6 +10,6 @@ mvn gwt:generate-module gwt:devmode
 ```
 
 One change needs to be done:
-- GWT doesn't emulate String.format so need to be changed. This StackOverflow article 
-is a good place to see ByteToHex in Java: 
+- GWT doesn't emulate String.format so this part needs to be changed. This StackOverflow article 
+is a good place to see ByteToHex alternatives in Java: 
 https://stackoverflow.com/questions/2817752/java-code-to-convert-byte-to-hexadecimal

@@ -8,15 +8,11 @@ import java.util.logging.Logger;
 import org.jboss.elemento.Elements;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.Timer;
 
-import elemental2.dom.Document;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLLabelElement;
 
 public class BlockchainEntryPoint implements EntryPoint {
 
@@ -24,49 +20,74 @@ public class BlockchainEntryPoint implements EntryPoint {
 
 	private static int prefix = 4;
 
-	private HTMLLabelElement label;
+	private String state = "START";
+
+	private HTMLButtonElement button;
+	
+	private int index = 0;
 
 	@Override
 	public void onModuleLoad() {
+		createTimer();
+		
 		Element div = DomGlobal.document.getElementById("hello");
-		
-		HTMLButtonElement button = Elements.button("Click me!").element();
-		label = Elements.label("...").element();
-		
+
+		button = Elements.button("Click me!").element();
+
 		div.append(button);
-		div.append(label);
-		
+
 		button.addEventListener("click", event -> {
 			createBlockchain();
 		});
 	}
 
+	private void createTimer() {
+		Timer timer = new Timer() {
+			
+			@Override
+			public void run() {
+				logger.info("Timer: " + index);
+				index++;
+				
+				if (state.equals("GENESIS")) {
+					button.innerHTML = "Genesis Block";
+				}
+				
+				if (state.equals("FIRST")) {
+					button.innerHTML = "First Block";
+				}
+			}
+		};
+
+		timer.schedule(5000);
+	}
+
 	private void createBlockchain() {
 		logger.info("Hello Blockchain!");
-		label.innerHTML = "Hello Blockchain!";
 
 		List<Block> blockchain = new ArrayList<Block>();
-		
+
 		logger.info("Genesis Block");
-		label.innerHTML = "Genesis Block";
+		state = "GENESIS";
 		Block genesisBlock = new Block("The is the Genesis Block.", "0", new Date().getTime());
 		genesisBlock.mineBlock(prefix);
 		blockchain.add(genesisBlock);
-		
+
 		logger.info("First Block");
-		label.innerHTML = "First Block";
+		state = "FIRST";
 		Block firstBlock = new Block("The is the First Block.", genesisBlock.getHash(), new Date().getTime());
 		firstBlock.mineBlock(prefix);
 		blockchain.add(firstBlock);
 
 		logger.info("New Block");
-		label.innerHTML = "New Block";
+		state = "NEW";
 		Block newBlock = new Block("The is a New Block.", blockchain.get(blockchain.size() - 1).getHash(),
 				new Date().getTime());
 		newBlock.mineBlock(prefix);
 		blockchain.add(newBlock);
-		
+
 		logger.info("Bye Blockchain!");
-		label.innerHTML = "Bye Blockchain!";
+		state = "END";
+		button.innerHTML = "Bye Blockchain!";
 	}
 }
