@@ -8,11 +8,14 @@ import java.util.logging.Logger;
 import org.jboss.elemento.Elements;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.user.client.Timer;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLLabelElement;
 
 public class BlockchainEntryPoint implements EntryPoint {
 
@@ -23,43 +26,62 @@ public class BlockchainEntryPoint implements EntryPoint {
 	private String state = "START";
 
 	private HTMLButtonElement button;
-	
+
+	private HTMLLabelElement label;
+
 	private int index = 0;
 
 	@Override
 	public void onModuleLoad() {
 		createTimer();
-		
+
 		Element div = DomGlobal.document.getElementById("hello");
 
-		button = Elements.button("Click me!").element();
+		button = Elements.button("Click me!").style("font-family: sans-serif;").element();
+		label = Elements.label("Before clicked...").style("margin-left: 10px;font-family: sans-serif;font-size: small;")
+				.element();
 
 		div.append(button);
+		div.append(label);
 
 		button.addEventListener("click", event -> {
-			createBlockchain();
+			button.innerHTML = "Creating...";
+			
+			createBlockchainWithScheduler();
+
+			label.innerHTML = "After clicked...";
+		});
+	}
+
+	private void createBlockchainWithScheduler() {
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			public void execute() {
+				createBlockchain();
+				
+				label.innerHTML = "Bye Blockchain!";
+				button.innerHTML = "Click me!";
+			}
 		});
 	}
 
 	private void createTimer() {
 		Timer timer = new Timer() {
-			
 			@Override
 			public void run() {
 				logger.info("Timer: " + index);
 				index++;
-				
+
 				if (state.equals("GENESIS")) {
-					button.innerHTML = "Genesis Block";
+					label.innerHTML = "Genesis Block";
 				}
-				
+
 				if (state.equals("FIRST")) {
-					button.innerHTML = "First Block";
+					label.innerHTML = "First Block";
 				}
 			}
 		};
 
-		timer.schedule(5000);
+		timer.scheduleRepeating(5000);
 	}
 
 	private void createBlockchain() {
@@ -88,6 +110,5 @@ public class BlockchainEntryPoint implements EntryPoint {
 
 		logger.info("Bye Blockchain!");
 		state = "END";
-		button.innerHTML = "Bye Blockchain!";
 	}
 }
