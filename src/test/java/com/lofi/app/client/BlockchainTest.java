@@ -51,15 +51,25 @@ public class BlockchainTest {
 		}
 		assertTrue(flag);
 	}
-	
+
 	@Test
-	public void formatToHex() {
+	public void given4f_formatToHex_then4f() {
 		Block newBlock = new Block("The is a New Block.", blockchain.get(blockchain.size() - 1).getHash(),
 				new Date().getTime());
-		
+
 		String result = newBlock.formatToHex((byte) 0x4f);
-		
+
 		assertEquals("4f", result);
+	}
+
+	@Test
+	public void given10_formatToHex_then0a() {
+		Block newBlock = new Block("The is a New Block.", blockchain.get(blockchain.size() - 1).getHash(),
+				new Date().getTime());
+
+		String result = newBlock.formatToHex((byte) 10);
+
+		assertEquals("0a", result);
 	}
 
 	@AfterAll

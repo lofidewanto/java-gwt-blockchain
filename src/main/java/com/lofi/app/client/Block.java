@@ -55,6 +55,8 @@ public class Block {
 	}
 
     void formatByteOfArrayToHexWithChar(byte[] bytes, StringBuffer buffer) {
+    	// Get this from StackOverflow: 
+    	// https://stackoverflow.com/questions/2817752/java-code-to-convert-byte-to-hexadecimal
 		for (int i = 0; i < bytes.length; i++) {
 			buffer.append(Character.forDigit((bytes[i] >> 4) & 0xF, 16));
 			buffer.append(Character.forDigit((bytes[i] & 0xF), 16));
@@ -69,7 +71,14 @@ public class Block {
 	}
 
 	String formatToHex(byte b) {
-		String formatContent = String.format("%02x", b);
+		// This String method does not work in GWT, because
+		// it is not implemented, 
+		// see https://groups.google.com/g/google-web-toolkit/c/-tYZuNh4nLI/m/5VMZsadsHb0J
+		// String formatContent = String.format("%02x", b);
+		String formatContent = Integer.toHexString(b & 0xFF);
+		if (formatContent.length() == 1) {
+			formatContent = "0".concat(formatContent);
+		}
 		return formatContent;
 	}
 
